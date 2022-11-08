@@ -58,6 +58,7 @@ class FMDUI : JFrame("ForgeModDeobfuscator") {
             override fun drop(dtde: DropTargetDropEvent?) {
                 try {
                     dtde?.acceptDrop(DnDConstants.ACTION_COPY)
+                    @Suppress("UNCHECKED_CAST")
                     val files: List<File> =
                         dtde?.transferable?.getTransferData(DataFlavor.javaFileListFlavor) as List<File>
                     for (file in files) {
