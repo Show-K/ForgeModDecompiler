@@ -46,7 +46,7 @@ object FMDMain {
     }
 
     @JvmStatic
-    fun process(mappings: File, input: File, decompiler: Decompiler) {
+    fun process(mappings: File, input: File) {
         logger.info("Started mapping jar: $input with mappings: $mappings")
         val fields = File(mappings, "fields.csv")
         if (!fields.exists()) throw FileNotFoundException("fields.csv file does not exist.")
@@ -74,11 +74,10 @@ object FMDMain {
 
         if (!input.exists()) throw IllegalArgumentException("Input file does not exist.")
 
-        val mappings = MCPMappings(methodList, fieldList)
+        val mcpMappings = MCPMappings(methodList, fieldList)
 
         val inputStream = JarInputStream(input.inputStream())
-        File("temp").mkdirs()
-        val outputStream = JarOutputStream(File("temp/ff_in.jar").outputStream())
+        val outputStream = JarOutputStream(File("${input.nameWithoutExtension}_deobf.${input.extension}").outputStream())
 
         var entry = inputStream.nextJarEntry
         while (entry != null) {
@@ -88,7 +87,7 @@ object FMDMain {
             if (entry.name.endsWith(".class")) {
                 val cr = ClassReader(inputStream)
                 val cw = ClassWriter(ClassWriter.COMPUTE_MAXS)
-                val sm = SeargeMapper(mappings)
+                val sm = SeargeMapper(mcpMappings)
                 cr.accept(ClassRemapper(cw, sm), ClassReader.EXPAND_FRAMES)
 
                 logger.info("Saving class entry: ${entry.name}")
@@ -107,7 +106,5 @@ object FMDMain {
             entry = inputStream.nextJarEntry
         }
         outputStream.close()
-
-        decompiler.executor.invoke(File("temp/ff_in.jar"))
     }
 }

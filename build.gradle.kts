@@ -33,11 +33,6 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
     implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
     implementation("com.opencsv:opencsv:5.7.0")
-    implementation("org.benf:cfr:0.152")
-    implementation(files("libs/procyon.jar"))
-    implementation("com.github.fesh0r:fernflower:dbf407a655")
-
-
 }
 
 val jar by tasks.getting(Jar::class) {

@@ -15,8 +15,6 @@ Wrote 100% in kotlin
 ![BROWSE BUTTON](https://pekwachnamaykoskwaskwaypinwanik.jet.pics/21659ff89f45.png)
 7. Select mappings that you downloaded (for example: mcp_stable-12-1.7.10)
 ![SELECT MAPPINGS](https://pekwachnamaykoskwaskwaypinwanik.jet.pics/798e1c45741b.png)
-8. Select decompiler of your choice (CFR, PROCYON, FERNFLOWER) <br>
-![SELECT DECOMPILER](https://pekwachnamaykoskwaskwaypinwanik.jet.pics/a087ba64f27d.png)
-9. Click Start button <br>
+8. Click Start button <br>
 ![CLICK START BUTTON](https://pekwachnamaykoskwaskwaypinwanik.jet.pics/6aee91dd241a.png)
-10. FMD will map SRG => MCP in forge mod and decompile it, source code of mod should be available in Sources directory, decompilers aren't perfect and there could be errors in source code that you will need to fix
+9. FMD will map SRG => MCP in forge mod, should be available in the same directory
