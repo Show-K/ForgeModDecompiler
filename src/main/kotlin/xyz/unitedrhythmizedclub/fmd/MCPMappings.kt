@@ -1,4 +1,4 @@
-package com.github.wcaleniekubaa.fmd
+package xyz.unitedrhythmizedclub.fmd
 
 class MCPMappings(
     val methods: List<MCPMember> = listOf(), val fields: List<MCPMember> = listOf()

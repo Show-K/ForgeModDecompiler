@@ -1,74 +1,80 @@
-package com.github.wcaleniekubaa.fmd.ui
+package xyz.unitedrhythmizedclub.fmd.ui
 
-import com.github.wcaleniekubaa.fmd.Decompiler
-import com.github.wcaleniekubaa.fmd.FMDMain
+import xyz.unitedrhythmizedclub.fmd.FMDMain
 import java.awt.Dimension
 import java.awt.Point
+import java.awt.datatransfer.DataFlavor
+import java.awt.dnd.DnDConstants
+import java.awt.dnd.DropTarget
+import java.awt.dnd.DropTargetDropEvent
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import java.io.File
+import java.lang.Exception
 import javax.swing.JButton
 import javax.swing.JComboBox
 import javax.swing.JFileChooser
 import javax.swing.JFrame
 import javax.swing.JTextField
-import javax.swing.filechooser.FileFilter
 
-class FMDUI : JFrame("ForgeModDecompiler") {
+class FMDUI : JFrame("ForgeModDeobfuscator") {
     init {
-        size = Dimension(450, 150)
+        size = Dimension(450, 110)
         isVisible = true
         defaultCloseOperation = 3
         isResizable = false
         addKeyListener(KeyHandler())
 
-
         val input = JTextField()
         val startBtn = JButton("Start")
         val browseBtn = JButton("Browse")
         val comboBox = JComboBox<File>()
-        val decompilerComboBox = JComboBox<Decompiler>()
 
-        startBtn.size = Dimension(100, 35)
-        startBtn.location = Point(460 - 130, 75)
+        startBtn.size = Dimension(100, 30)
+        startBtn.location = Point(450 - 5 - 115, 35)
         add(startBtn)
         startBtn.addActionListener {
             Thread({
-                FMDMain.process(comboBox.getItemAt(comboBox.selectedIndex), File(input.text), decompilerComboBox.getItemAt(decompilerComboBox.selectedIndex))
-            }, "FMD-Thread") .start()
+                FMDMain.process(comboBox.getItemAt(comboBox.selectedIndex), File(input.text))
+            }, "FMD-Thread").start()
         }
 
-        input.size = Dimension(320, 30)
-        input.location = Point(10, 10)
+        input.size = Dimension(325, 30)
+        input.location = Point(5, 5)
         add(input)
 
         browseBtn.size = Dimension(100, 30)
-        browseBtn.location = Point(460 - 130, 10)
+        browseBtn.location = Point(450 - 5 - 115, 5)
         add(browseBtn)
 
         browseBtn.addActionListener {
             val browser = JFileChooser()
-            if(browser.showDialog(null, "Select") == JFileChooser.APPROVE_OPTION) {
+            if (browser.showDialog(null, "Select") == JFileChooser.APPROVE_OPTION) {
                 input.text = browser.selectedFile.absolutePath
             }
         }
 
+        input.dropTarget = object : DropTarget() {
+            override fun drop(dtde: DropTargetDropEvent?) {
+                try {
+                    dtde?.acceptDrop(DnDConstants.ACTION_COPY)
+                    val files: List<File> =
+                        dtde?.transferable?.getTransferData(DataFlavor.javaFileListFlavor) as List<File>
+                    for (file in files) {
+                        input.text = file.canonicalPath
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
 
-        for(file in FMDMain.mappingsFiles) {
+        for (file in FMDMain.mappingsFiles) {
             comboBox.addItem(file)
         }
-        comboBox.size = Dimension(320, 35)
-        comboBox.location = Point(10, 40)
-        for(decompiler in Decompiler.values()) {
-            decompilerComboBox.addItem(decompiler)
-        }
-        decompilerComboBox.size = Dimension(320, 35)
-        decompilerComboBox.location = Point(10, 75)
+        comboBox.size = Dimension(325, 30)
+        comboBox.location = Point(5, 35)
         add(comboBox)
-        add(decompilerComboBox)
-
-
-
 
         repaint()
         layout = null

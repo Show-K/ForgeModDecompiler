@@ -6,12 +6,12 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-val asmVersion = "9.3"
-val flatLafVersion = "2.4"
-val log4jVersion = "2.18.0"
+val asmVersion = "9.4"
+val flatLafVersion = "2.6"
+val log4jVersion = "2.19.0"
 
 
-group = "com.github.wcaleniekubaa"
+group = "xyz.unitedrhythmizedclub"
 version = "1.0.2"
 
 repositories {
@@ -32,12 +32,12 @@ dependencies {
 
     implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
     implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
-    implementation("com.opencsv:opencsv:5.7.0")
+    implementation("com.opencsv:opencsv:5.7.1")
 }
 
 val jar by tasks.getting(Jar::class) {
     manifest {
-        attributes["Main-Class"] = "com.github.wcaleniekubaa.fmd.FMDMain"
+        attributes["Main-Class"] = "xyz.unitedrhythmizedclub.fmd.FMDMain"
     }
 }
 

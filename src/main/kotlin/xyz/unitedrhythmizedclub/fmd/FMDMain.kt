@@ -1,8 +1,8 @@
-package com.github.wcaleniekubaa.fmd
+package xyz.unitedrhythmizedclub.fmd
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme
-import com.github.wcaleniekubaa.fmd.asm.SeargeMapper
-import com.github.wcaleniekubaa.fmd.ui.FMDUI
+import xyz.unitedrhythmizedclub.fmd.asm.SeargeMapper
+import xyz.unitedrhythmizedclub.fmd.ui.FMDUI
 import com.opencsv.CSVReader
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -77,7 +77,8 @@ object FMDMain {
         val mcpMappings = MCPMappings(methodList, fieldList)
 
         val inputStream = JarInputStream(input.inputStream())
-        val outputStream = JarOutputStream(File("${input.nameWithoutExtension}_deobf.${input.extension}").outputStream())
+        val outputStream =
+            JarOutputStream(File("${(input.parent)}${File.separator}${input.nameWithoutExtension}_deobf.${input.extension}").outputStream())
 
         var entry = inputStream.nextJarEntry
         while (entry != null) {

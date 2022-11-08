@@ -1,3 +1,3 @@
 
-rootProject.name = "ForgeModDecompiler"
+rootProject.name = "ForgeModDeobfuscator"
 
