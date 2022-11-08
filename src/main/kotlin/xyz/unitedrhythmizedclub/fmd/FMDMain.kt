@@ -108,6 +108,11 @@ object FMDMain {
             entry = inputStream.nextJarEntry
         }
         outputStream.close()
-        JOptionPane.showMessageDialog(null, "Deobfuscated JAR file: $outputPath", "Success", JOptionPane.INFORMATION_MESSAGE)
+        JOptionPane.showMessageDialog(
+            null,
+            "Deobfuscated mod file: $outputPath",
+            "ForgeModDeobfuscator",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 }

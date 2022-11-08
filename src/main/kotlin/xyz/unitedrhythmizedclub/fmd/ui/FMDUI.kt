@@ -10,12 +10,8 @@ import java.awt.dnd.DropTargetDropEvent
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import java.io.File
-import java.lang.Exception
-import javax.swing.JButton
-import javax.swing.JComboBox
-import javax.swing.JFileChooser
-import javax.swing.JFrame
-import javax.swing.JTextField
+import javax.swing.*
+import kotlin.Exception
 
 class FMDUI : JFrame("ForgeModDeobfuscator") {
     init {
@@ -35,7 +31,16 @@ class FMDUI : JFrame("ForgeModDeobfuscator") {
         add(startBtn)
         startBtn.addActionListener {
             Thread({
-                FMDMain.process(comboBox.getItemAt(comboBox.selectedIndex), File(input.text))
+                try {
+                    FMDMain.process(comboBox.getItemAt(comboBox.selectedIndex), File(input.text))
+                } catch (e: Exception) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Failed to deobfuscate mod file.",
+                        "ForgeModDeobfuscator",
+                        JOptionPane.ERROR_MESSAGE
+                    )
+                }
             }, "FMD-Thread").start()
         }
 
