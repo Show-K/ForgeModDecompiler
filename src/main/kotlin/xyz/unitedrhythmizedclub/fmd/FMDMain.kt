@@ -17,6 +17,7 @@ import java.nio.file.Paths
 import java.util.jar.JarEntry
 import java.util.jar.JarInputStream
 import java.util.jar.JarOutputStream
+import javax.swing.JOptionPane
 import javax.swing.UIManager
 
 object FMDMain {
@@ -77,8 +78,8 @@ object FMDMain {
         val mcpMappings = MCPMappings(methodList, fieldList)
 
         val inputStream = JarInputStream(input.inputStream())
-        val outputStream =
-            JarOutputStream(File("${(input.parent)}${File.separator}${input.nameWithoutExtension}_deobf.${input.extension}").outputStream())
+        val outputPath = "${(input.parent)}${File.separator}${input.nameWithoutExtension}_deobf.${input.extension}"
+        val outputStream = JarOutputStream(File(outputPath).outputStream())
 
         var entry = inputStream.nextJarEntry
         while (entry != null) {
@@ -107,5 +108,6 @@ object FMDMain {
             entry = inputStream.nextJarEntry
         }
         outputStream.close()
+        JOptionPane.showMessageDialog(null, "Deobfuscated JAR file: $outputPath", "Success", JOptionPane.INFORMATION_MESSAGE)
     }
 }
