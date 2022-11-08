@@ -1,7 +1,6 @@
 gradlew
 gradlew.bat
 temp
-deobf
 logs
 .idea
 .gradle
