@@ -107,6 +107,7 @@ object FMDMain {
             }
             entry = inputStream.nextJarEntry
         }
+        inputStream.close()
         outputStream.close()
         JOptionPane.showMessageDialog(
             null,

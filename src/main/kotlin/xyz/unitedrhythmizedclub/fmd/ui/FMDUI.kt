@@ -36,7 +36,7 @@ class FMDUI : JFrame("ForgeModDeobfuscator") {
                 } catch (e: Exception) {
                     JOptionPane.showMessageDialog(
                         null,
-                        "Failed to deobfuscate mod file.",
+                        "Failed to deobfuscate mod file: ${e.localizedMessage}",
                         "ForgeModDeobfuscator",
                         JOptionPane.ERROR_MESSAGE
                     )

@@ -12,7 +12,7 @@ val log4jVersion = "2.19.0"
 
 
 group = "xyz.unitedrhythmizedclub"
-version = "1.0.2"
+version = "1.0.2.1"
 
 repositories {
     mavenCentral()
